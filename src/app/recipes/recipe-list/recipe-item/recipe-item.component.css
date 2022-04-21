@@ -1,0 +1,14 @@
+.test {
+  display: inline-block;
+}
+.desc {
+  text-align: justify;
+  width: 425px;
+  font-size: 1.7rem;
+}
+
+.title {
+    font-size: 3rem;
+    padding:  7px 7px 0 0;
+}
+

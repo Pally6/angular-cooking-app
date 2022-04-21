@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">Recipe Book</a>
+    </div>
+    
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/recipes" *ngIf="isAuthenticated">Recipes</a></li>
+        <li routerLinkActive="active"><a routerLink="/auth" *ngIf="!isAuthenticated" >Login / Sign Up</a></li>
+        <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a style="cursor: pointer" *ngIf="isAuthenticated" (click)="onLogout()">Logout</a>
+        </li>
+        <li class="dropdown" appDropdown>
+          <a style="cursor: pointer" 
+          class="dropdown-toggle" 
+          role="button"
+          *ngIf="isAuthenticated"
+          >Manage <span 
+          class="caret"
+          ></span></a>
+          <div *ngIf="isLog">
+            <div class="backdrop" (click)="onNo()"></div>
+            <div class="alert-box">
+              <p>Are you sure you want to log out ?</p>
+              <div class="alert-box-actions">
+                <button class="btn btnn btn-success" (click)="onYes()">Yes</button>
+                <button class="btn btnn btn-danger" (click)="onNo()">No</button>
+              </div>
+            </div>
+          </div>
+          <ul class="dropdown-menu">
+            <li><a style="cursor: pointer"(click)='onSaveData()'>Save Data</a></li>
+            <li><a style="cursor: pointer"(click)='onFetchData()'>Fetch Data</a></li>
+          </ul>
+        </li>
+      </ul>
+    
+  </div>
+</nav>
