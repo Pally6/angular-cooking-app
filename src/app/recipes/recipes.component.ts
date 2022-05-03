@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-
 
 @Component({
   selector: 'app-recipes',
@@ -8,23 +6,11 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./recipes.component.css'],
 })
 export class RecipesComponent implements OnInit {
-  
+  name: any;
 
-  constructor(private authService: AuthService) {}
+  constructor() {}
+  
   ngOnInit(): void {
-    
-     
+    this.name = JSON.parse(localStorage.getItem('userName'));
   }
-
-  email = this.authService.user.value.email;
-  
-  
-  
- 
-
-  
-    
-  }
-
-  
-
+}

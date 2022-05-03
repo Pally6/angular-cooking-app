@@ -62,7 +62,7 @@ export class RecipeEditComponent implements OnInit {
 
   onSaveToast() {
     if (this.editMode) {
-    this.toastService.showSuccess("Recipe updated.", "", "")
+    this.toastService.showInfo("Recipe updated.", "", "")
     } else {
       this.toastService.showSuccess("Recipe successfully saved.", "", "")
     }

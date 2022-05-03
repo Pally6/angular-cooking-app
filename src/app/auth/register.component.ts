@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RecipeService } from '../recipes/recipes.service';
 import { ToastService } from '../shared/toast-notification.service';
 import { AuthResponseData, AuthService } from './auth.service';
 
@@ -14,9 +13,12 @@ export class RegisterComponent {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
-  
 
-  constructor(private authService: AuthService, private router: Router, private toastService: ToastService, private recipeService: RecipeService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   onSubmit(form: NgForm) {
     const firstName = form.value.firstName;
@@ -24,8 +26,7 @@ export class RegisterComponent {
     const email = form.value.email;
     const password = form.value.password;
     let authObs: Observable<AuthResponseData>;
-    
-    
+    localStorage.setItem('userName', JSON.stringify(firstName));
 
     if (!form.valid) {
       return;
@@ -39,7 +40,11 @@ export class RegisterComponent {
         console.log(firstName);
         this.router.navigate(['/recipes']);
         this.isLoading = false;
-        this.toastService.showSuccess("You have successfully registered.", "", "")
+        this.toastService.showSuccess(
+          'You have successfully registered.',
+          '',
+          ''
+        );
       },
       (errorMessage) => {
         console.log(errorMessage);
@@ -53,8 +58,4 @@ export class RegisterComponent {
   onHandleError() {
     this.error = null;
   }
-
-  
 }
-
-

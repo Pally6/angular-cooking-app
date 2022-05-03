@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input,  } from "@angular/core";
 import { ToastService } from "./toast-notification.service";
 
 @Component({
@@ -32,4 +32,11 @@ import { ToastService } from "./toast-notification.service";
       this.toastService.showWarning("Warning Bad.", "", "")
     };
 
+
+  //  fruits = ['apple', 'pear', 'banana', 'coconut'];
+  //  
+  //  onDelete() {
+  //    
+  //  }
+    
 }

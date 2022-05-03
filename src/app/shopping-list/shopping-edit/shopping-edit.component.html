@@ -29,9 +29,9 @@
       <div *ngIf="isIngredient">
         <div class="backdrop" (click)="onNo()"></div>
         <div class="alert-box">
-          <p>Are you sure you want to delete ingredient ?</p>
+          <p>Are you sure you want to delete ingredient(s) ?</p>
           <div class="alert-box-actions">
-            <button class="btn btnn btn-success" (click)="onYes()">Yes</button>
+            <button class="btn btnn btn-success"  (click)="onYes()">Yes</button>
             <button class="btn btnn btn-danger" (click)="onNo()">No</button>
           </div>
         </div>
@@ -39,16 +39,18 @@
       <div class="row">
         <div class="col-xs-12">
           <button class="btn btn-success" type="submit" [disabled]="!f.valid">
-            {{ editMode ? "Update" : "Add" }}
+            {{ editMode ? "Update" : "Add" }} 
           </button>
+          <span>&nbsp;&nbsp;&nbsp;</span>
           <button
             class="btn btn-danger"
             type="button"
             (click)="onDelete()"
             *ngIf="editMode"
           >
-            Delete
+            Delete ingredient 
           </button>
+          <span *ngIf="editMode">&nbsp;&nbsp;&nbsp;</span>
           <button
             class="btn btn-primary"
             *ngIf="f.valid"
@@ -56,6 +58,14 @@
             type="button"
           >
             Clear
+          </button>
+          <span *ngIf="editMode">&nbsp;&nbsp;&nbsp;</span>
+          <button
+            class="btn btn-danger"
+            type="button"
+            (click)="onDeleteAll()"
+          >
+            Delete all ingredients
           </button>
         </div>
       </div>

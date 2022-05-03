@@ -15,17 +15,20 @@ export class AuthComponent {
   isLoading = false;
   error: string = null;
 
-  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   onSignUp() {
-    this.router.navigate(['/register'])
+    this.router.navigate(['/register']);
   }
-  
 
   onSubmit(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
-    let authObs: Observable<AuthResponseData>
+    let authObs: Observable<AuthResponseData>;
 
     if (!form.valid) {
       return;
@@ -33,12 +36,16 @@ export class AuthComponent {
     this.isLoading = true;
     if (this.isLoginMode) {
       authObs = this.authService.login(email, password);
-    } 
+    }
     authObs.subscribe(
       (resData) => {
         console.log(resData);
         this.router.navigate(['/recipes']);
-        this.toastService.showSuccess("You have successfully logged in.", "", "")
+        this.toastService.showSuccess(
+          'You have successfully logged in.',
+          '',
+          ''
+        );
         this.isLoading = false;
       },
       (errorMessage) => {
@@ -53,9 +60,4 @@ export class AuthComponent {
   onHandleError() {
     this.error = null;
   }
-
-
-  
-
-
 }

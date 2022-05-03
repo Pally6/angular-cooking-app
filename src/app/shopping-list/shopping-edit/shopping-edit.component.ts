@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ToastService } from 'src/app/shared/toast-notification.service';
 import { ShoppingListService } from '../shopping-list.service';
@@ -17,8 +18,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editedItemIndex: number;
   editedItem: Ingredient;
   isIngredient = false;
+  isIngredients = false;
 
-  constructor(private slService: ShoppingListService, private toastService: ToastService) {}
+  constructor(
+    private slService: ShoppingListService,
+    private dsService: DataStorageService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.subscription = this.slService.startedEditing.subscribe(
@@ -27,8 +33,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
         this.editMode = true;
         this.editedItem = this.slService.getIngredient(index);
         this.slForm.setValue({
-          name: this.editedItem.name,
           amount: this.editedItem.amount,
+          name: this.editedItem.name,
         });
       }
     );
@@ -36,11 +42,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onAddItem(form: NgForm) {
     const value = form.value;
-    const newIngredient = new Ingredient(value.name, value.amount);
+    const newIngredient = new Ingredient(value.amount, value.name);
     if (this.editMode) {
       this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+      this.dsService.storeIngredients();
     } else {
       this.slService.addIngredient(newIngredient);
+      this.dsService.storeIngredients();
     }
     this.editMode = false;
     this.slForm.reset();
@@ -53,14 +61,27 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this.isIngredient = true;
-      
     this.onClear();
   }
 
+  onDeleteAll() {
+    this.isIngredient = true;
+    this.isIngredients = true;
+  }
+
   onYes() {
-    this.toastService.showError("Ingredient deleted.", "", "");
-    this.slService.deleteIngredient(this.editedItemIndex);
-    this.isIngredient = false;
+    if (this.isIngredients) {
+      this.slService.deleteIngredients();
+      this.dsService.storeIngredients();
+      this.toastService.showWarning('Ingredients deleted.', '', '');
+      this.isIngredients = false;
+      this.isIngredient = false;
+    } else {
+      this.slService.deleteIngredient(this.editedItemIndex);
+      this.dsService.storeIngredients();
+      this.toastService.showWarning('Ingredient deleted.', '', '');
+      this.isIngredient = false;
+    }
   }
 
   onNo() {

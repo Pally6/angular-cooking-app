@@ -14,7 +14,6 @@ export class RecipeDetailsComponent implements OnInit {
   recipe: Recipe;
   id: number;
   isDelete = false;
-  
 
   constructor(
     private dataStorageService: DataStorageService,
@@ -33,7 +32,8 @@ export class RecipeDetailsComponent implements OnInit {
 
   onAddToShoppingList() {
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
-    this.toastService.showSuccess('Ingredients added to Shopping List', '', '');
+    this.toastService.showInfo('Ingredients added to Shopping List', '', '');
+    this.dataStorageService.storeIngredients();
   }
 
   onEditRecipe() {
@@ -51,9 +51,9 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   onYes() {
-      this.onDeleteRecipe()
-      this.toastService.showError("Recipe deleted.", "", "")
-      this.isDelete = false;
+    this.onDeleteRecipe();
+    this.toastService.showWarning('Recipe deleted.', '', '');
+    this.isDelete = false;
   }
 
   onNo() {

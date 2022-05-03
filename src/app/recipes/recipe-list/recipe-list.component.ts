@@ -26,28 +26,20 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       (recipes: Recipe[]) => {
         this.recipes = recipes;
       }
-    )
+    );
     this.recipes = this.recipeService.getRecipes();
 
-    
-
     this.dataStorageService.fetchRecipes().subscribe();
-    
-
-   
   }
 
-  
-
-  onNewRecipe(){
-    this.router.navigate(['new'], {relativeTo: this.route});
+  onNewRecipe() {
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }
 function loadData() {
   throw new Error('Function not implemented.');
 }
-

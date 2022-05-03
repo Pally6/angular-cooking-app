@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +14,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLog = false;
 
   constructor(
-    private dataStorageService: DataStorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -24,12 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSaveData() {
-    this.dataStorageService.storeRecipes();
-  }
-
-  onFetchData() {
-    this.dataStorageService.fetchRecipes().subscribe();
+  onToastPage() {
+    this.router.navigate(['/toast'], { relativeTo: this.route });
   }
 
   onLogout() {

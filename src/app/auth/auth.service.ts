@@ -25,7 +25,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An uknown error occurred!';
     if (!errorRes.error || !errorRes.error.error) {
@@ -53,7 +52,14 @@ export class AuthService {
     expiresIn: number
   ) {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
-    const user = new User(firstName, lastName, email, userId, token, expirationDate);
+    const user = new User(
+      firstName,
+      lastName,
+      email,
+      userId,
+      token,
+      expirationDate
+    );
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
@@ -61,8 +67,8 @@ export class AuthService {
 
   autoLogin() {
     const userData: {
-      firstName: string,
-      lastName: string,
+      firstName: string;
+      lastName: string;
       email: string;
       id: string;
       _token: string;
@@ -84,8 +90,10 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-      this.autoLogout(expirationDuration)
+      const expirationDuration =
+        new Date(userData._tokenExpirationDate).getTime() -
+        new Date().getTime();
+      this.autoLogout(expirationDuration);
     }
   }
 
@@ -103,16 +111,16 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
-
   }
 
-
-  signup(firstName:string, lastName:string, email: string, password: string) {
+  signup(firstName: string, lastName: string, email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.FirebaseAPIKey,
-        
-        { firstName: firstName,
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+          environment.FirebaseAPIKey,
+
+        {
+          firstName: firstName,
           lastName: lastName,
           email: email,
           password: password,
@@ -137,7 +145,8 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.FirebaseAPIKey,
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+          environment.FirebaseAPIKey,
         {
           email: email,
           password: password,
