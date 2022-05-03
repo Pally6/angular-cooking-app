@@ -2,3 +2,18 @@ input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
     border: 1px solid red;
 }
+
+#edit-container {
+    margin-top: -0.5%;
+}
+
+#ingbtn{
+    margin-top: 2%;
+}
+#save-cancel-btns {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+    padding-right: 0;
+    
+}

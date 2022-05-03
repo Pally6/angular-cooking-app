@@ -27,6 +27,15 @@
         justify-content: space-between;
         margin-left: 70%;
       }
+
+      #shop-list {
+        display: flex;
+        align-items: center;
+      }
+
+      .clear-btn {
+        margin-bottom: -9%;
+      }
     
       .btnn {
         width: 46%;

@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-xs-12">
     <form (ngSubmit)="onAddItem(f)" #f="ngForm">
-      <div class="row">
-        <div class="col-sm-2 form-group">
+      <div id="shop-list" class="row">
+        <div class="col-sm-1 form-group">
           <label for="amount">Amount</label>
           <input
             type="number"
@@ -11,8 +11,7 @@
             name="amount"
             ngModel
             required
-            pattern="^[1-9]+[0-9]*$"
-          />
+            pattern="^[1-9]+[0-9]*$"/>
         </div>
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
@@ -22,8 +21,17 @@
             class="form-control"
             name="name"
             ngModel
-            required
-          />
+            required/>
+        </div>
+        <div>
+          <button
+            class="btn btn-primary clear-btn"
+            *ngIf="f.valid"
+            (click)="onClear()"
+            type="button">
+            Clear Fields
+          </button>
+          
         </div>
       </div>
       <div *ngIf="isIngredient">
@@ -39,32 +47,22 @@
       <div class="row">
         <div class="col-xs-12">
           <button class="btn btn-success" type="submit" [disabled]="!f.valid">
-            {{ editMode ? "Update" : "Add" }} 
+            {{ editMode ? "Save ingredient" : "Add ingredient" }} 
           </button>
-          <span>&nbsp;&nbsp;&nbsp;</span>
+          <!--<span>&nbsp;&nbsp;&nbsp;</span> -->
+          <!--<button -->
+          <!--  class="btn btn-danger" -->
+          <!--  type="button" -->
+          <!--  (click)="onDelete()" -->
+          <!--  *ngIf="editMode"> -->
+          <!--  Delete ingredient  -->
+          <!--</button> -->
+          <!--<span *ngIf="editMode">&nbsp;&nbsp;&nbsp;</span -->
+          <!--<span *ngIf="editMode">&nbsp;&nbsp;&nbsp;</span -->
           <button
-            class="btn btn-danger"
+            class="btn btn-danger pull-right"
             type="button"
-            (click)="onDelete()"
-            *ngIf="editMode"
-          >
-            Delete ingredient 
-          </button>
-          <span *ngIf="editMode">&nbsp;&nbsp;&nbsp;</span>
-          <button
-            class="btn btn-primary"
-            *ngIf="f.valid"
-            (click)="onClear()"
-            type="button"
-          >
-            Clear
-          </button>
-          <span *ngIf="editMode">&nbsp;&nbsp;&nbsp;</span>
-          <button
-            class="btn btn-danger"
-            type="button"
-            (click)="onDeleteAll()"
-          >
+            (click)="onDeleteAll()">
             Delete all ingredients
           </button>
         </div>

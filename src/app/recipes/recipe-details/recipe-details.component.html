@@ -1,64 +1,76 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img
-      style="max-width: 180px"
-      style="max-height: 90px"
-      [src]="recipe.imagePath"
-      alt="{{ recipe.name }}"
-      class="img-responsive"
-    />
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ recipe.name }}</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div class="btn-group" appDropdown>
-      <button type="button" class="btn btn-primary dropdown-toggle">
-        Manage Recipe <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a style="cursor: pointer" (click)="onAddToShoppingList()"
-            >To Shopping List</a
-          >
-        </li>
-        <li>
-          <a style="cursor: pointer" (click)="onEditRecipe()">Edit Recipe</a>
-        </li>
-        <li>
-          <a style="cursor: pointer" (click)="clickMethod()">Delete Recipe</a>
-        </li>
-      </ul>
+<div class="content-box">
+  <div class="row">
+    <div class="col-xs-12">
+      <img *ngIf="!recipe.imagePath" 
+      src="https://kaverisias.com/wp-content/uploads/2018/01/catalog-default-img.gif" class="img-responsive" />
+      <img *ngIf="recipe.imagePath"
+        [src]="recipe.imagePath"
+        alt="{{ recipe.name }}"
+        class="img-responsive"/>
     </div>
-    <div *ngIf="isDelete">
-      <div class="backdrop" (click)="onNo()"></div>
-      <div class="alert-box">
-        <p>Do you want to delete the recipe ?</p>
-        <div class="alert-box-actions">
-          <button class="btn btnn btn-success" (click)="onYes()">Yes</button>
-          <button class="btn btnn btn-danger" (click)="onNo()">No</button>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{ recipe.name }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <!--<div class="btn-group" appDropdown> -->
+      <!--  <button type="button" class="btn btn-primary dropdown-toggle"> -->
+      <!--    Manage Recipe <span class="caret"></span> -->
+      <!--  </button> -->
+      <!--  <ul class="dropdown-menu"> -->
+      <!--    <li> -->
+      <!--      <a style="cursor: pointer"  -->
+      <!--        >To Shopping List</a> -->
+      <!--    </li> -->
+      <!--    <li> -->
+      <!--      <a style="cursor: pointer" >Edit Recipe</a> -->
+      <!--    </li> -->
+      <!--    <li> -->
+      <!--      <a style="cursor: pointer" >Delete Recipe</a> -->
+      <!--    </li> -->
+      <!--  </ul> -->
+      <!--</div> -->
+      <div *ngIf="isDelete">
+        <div class="backdrop" (click)="onNo()"></div>
+        <div class="alert-box">
+          <p>Do you want to delete the recipe ?</p>
+          <div class="alert-box-actions">
+            <button class="btn btnn btn-success" (click)="onYes()">Yes</button>
+            <button class="btn btnn btn-danger" (click)="onNo()">No</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div style="height: 600px" style="font-size: 21px" class="col-xs-12">
-    <span>{{ recipe.description }}</span>
+  <div class="row">
+    <div style="height: 600px" style="font-size: 21px" class="col-xs-12">
+      <span>{{ recipe.description }}</span>
+    </div>
   </div>
-</div>
-<hr />
-<h3 *ngIf="recipe.ingredients" style="margin: 7px 0px 20px 0; text-align: center">Ingredients:</h3>
-<div class="row">
-  <div class="col-xs-12">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
-        {{ ingredient.amount }} {{ ingredient.name }}
-      </li>
-    </ul>
+  <button type="button" *ngIf="recipe.ingredients" class="btn btn-primary shopping-btn" (click)="onAddToShoppingList()">Add Ingredients to Shopping List</button>
+  <hr/>
+    <h3
+    *ngIf="recipe.ingredients"
+    style="margin: 7px 0px 20px 0; text-align: center">
+    Ingredients:
+    </h3>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let ingredient of recipe.ingredients">
+          {{ ingredient.amount }} {{ ingredient.name }}
+        </li>
+      </ul>
+      <div id="btn-container">
+        <button type="button" class="btn btn-primary" (click)="onEditRecipe()">Edit Recipe</button>
+        <button type="button" class="btn btn-danger" (click)="clickMethod()">Delete Recipe</button>
+      </div>
+ 
+    </div>
   </div>
 </div>
