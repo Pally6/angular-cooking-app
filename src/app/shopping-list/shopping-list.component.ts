@@ -1,5 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Recipe } from '../recipes/recipe.model';
+import { RecipeService } from '../recipes/recipes.service';
 import { DataStorageService } from '../shared/data-storage.service';
 import { Ingredient } from '../shared/ingredient.model';
 import { ToastService } from '../shared/toast-notification.service';
@@ -13,6 +15,7 @@ import { ShoppingListService } from './shopping-list.service';
 export class ShoppingListComponent implements OnInit, OnDestroy {
   
   @Input() ingredients: Ingredient[];
+  @Input() recipe: Recipe[];
   private igChange: Subscription;
   private isStartedEditing: Subscription;
   isIngredient = false;
@@ -21,6 +24,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   constructor(
     private dsService: DataStorageService,
     private toastService: ToastService,
+    private recipeService: RecipeService,
     private slService: ShoppingListService
   ) {}
 
@@ -31,6 +35,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
         this.ingredients = ingredients;
       }
     );
+
+    
 
     this.dsService.fetchIngredients().subscribe();
     this.isStartedEditing = this.slService.startedEditing.subscribe(

@@ -6,6 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { environment } from 'src/environments/environment';
 
+
 export interface AuthResponseData {
   firstName: string;
   lastName: string;
@@ -25,6 +26,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An uknown error occurred!';
     if (!errorRes.error || !errorRes.error.error) {
@@ -42,6 +44,8 @@ export class AuthService {
     }
     return throwError(errorMessage);
   }
+
+  
 
   private handleAuthentication(
     firstName: string,
@@ -167,4 +171,5 @@ export class AuthService {
         })
       );
   }
+  
 }
