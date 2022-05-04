@@ -46,7 +46,6 @@ export class AuthService {
   }
 
   
-
   private handleAuthentication(
     firstName: string,
     lastName: string,

@@ -28,14 +28,13 @@
                 ngModel
                 name="password"
                 required
-                minlength="6"
-                >
+                minlength="6">
             </div>
             <div>
                 <button class='btn btn-primary' type="submit"
                 [disabled]="!authForm.valid"
-                >Login</button> |
-                <button class='btn btn-primary'type='button' (click)="onSignUp()">Sign Up</button> 
+                >Login</button> &nbsp; 
+                <button class='btn btn-primary'type='button' (click)="onSignUp()">Sign up</button> 
             </div>
         </form>
     </div>

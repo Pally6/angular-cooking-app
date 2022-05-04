@@ -10,6 +10,7 @@ export class ShoppingListService {
 
   constructor() {}
 
+
   setIngredients(ingredients: Ingredient[]) {
     this.ingredients = ingredients;
     this.ingredientsChanged.next(this.ingredients.slice());

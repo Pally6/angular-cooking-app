@@ -6,11 +6,13 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ToastService } from 'src/app/shared/toast-notification.service';
 import { ShoppingListService } from '../shopping-list.service';
 
+
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
   styleUrls: ['./shopping-edit.component.css'],
 })
+
 export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('f') slForm: NgForm;
   subscription: Subscription;
@@ -18,13 +20,16 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editedItemIndex: number;
   editedItem: Ingredient;
   isIngredient = false;
-  isIngredients = false;
+  
 
   constructor(
     private slService: ShoppingListService,
     private dsService: DataStorageService,
     private toastService: ToastService
   ) {}
+
+  
+ 
 
   ngOnInit(): void {
     this.subscription = this.slService.startedEditing.subscribe(
@@ -61,29 +66,16 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     this.editMode = false;
   }
 
-  onDelete() {
-    this.isIngredient = true;
-    this.onClear();
-  }
-
   onDeleteAll() {
     this.isIngredient = true;
-    this.isIngredients = true;
   }
 
   onYes() {
-    if (this.isIngredients) {
       this.slService.deleteIngredients();
       this.dsService.storeIngredients();
       this.toastService.showWarning('Ingredients deleted.', '', '');
-      this.isIngredients = false;
       this.isIngredient = false;
-    } else {
-      this.slService.deleteIngredient(this.editedItemIndex);
-      this.dsService.storeIngredients();
-      this.toastService.showWarning('Ingredient deleted.', '', '');
-      this.isIngredient = false;
-    }
+      this.onClear();
   }
 
   onNo() {

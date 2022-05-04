@@ -50,7 +50,7 @@
       <span>{{ recipe.description }}</span>
     </div>
   </div>
-  <button type="button" *ngIf="recipe.ingredients" class="btn btn-primary shopping-btn" (click)="onAddToShoppingList()">Add Ingredients to Shopping List</button>
+  <button type="button" *ngIf="recipe.ingredients" class="btn btn-primary shopping-btn" (click)="onAddToShoppingList()">Add ingredients to shopping list</button>
   <hr/>
     <h3
     *ngIf="recipe.ingredients"
@@ -67,8 +67,8 @@
         </li>
       </ul>
       <div id="btn-container">
-        <button type="button" class="btn btn-primary" (click)="onEditRecipe()">Edit Recipe</button>
-        <button type="button" class="btn btn-danger" (click)="clickMethod()">Delete Recipe</button>
+        <button type="button" class="btn btn-primary" (click)="onEditRecipe()">Edit recipe</button>
+        <button type="button" class="btn btn-danger" (click)="clickMethod()">Delete recipe</button>
       </div>
  
     </div>
