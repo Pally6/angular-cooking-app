@@ -6,12 +6,17 @@ import { Recipe } from './recipe.model';
 
 @Injectable()
 export class RecipeService {
-  
+  recipeName  = new Subject<Recipe>()
   recipesChanged = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [];
 
   constructor(private slService: ShoppingListService) {}
+
+  getRecipeName(recipe: Recipe) {
+    const rec:Recipe = recipe
+    return this.recipeName.next(rec)
+  }
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;

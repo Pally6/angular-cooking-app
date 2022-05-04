@@ -36,6 +36,7 @@ export class RecipeDetailsComponent implements OnInit {
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
     this.toastService.showInfo('Ingredients added to Shopping List', '', '');
     this.dataStorageService.storeIngredients();
+    this.recipeService.getRecipeName(this.recipe);
   }
 
   onEditRecipe() {

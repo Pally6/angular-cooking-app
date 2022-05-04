@@ -6,10 +6,14 @@ import { Ingredient } from '../shared/ingredient.model';
 export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
   startedEditing = new Subject<number>();
+  onFormReset = new Subject<void>();
   private ingredients: Ingredient[] = [];
 
   constructor() {}
 
+  resetForm(): void {
+    this.onFormReset.next();
+  }
 
   setIngredients(ingredients: Ingredient[]) {
     this.ingredients = ingredients;
