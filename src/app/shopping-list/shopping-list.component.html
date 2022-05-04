@@ -9,7 +9,7 @@
         (click)="onEditItem(i)"
         [ngClass]="{'selectedIng': i === editedItemIndex}">
         {{ ingredient.amount }} {{ ingredient.name }} 
-        <button (click)="removeIngredient()" id="remove-ing" class=" btn-danger pull-right">X</button>
+        <button  (click)="removeIngredient(i)" id="remove-ing" class=" btn-danger pull-right">X</button>
       </a>
     </ul>
   </div>

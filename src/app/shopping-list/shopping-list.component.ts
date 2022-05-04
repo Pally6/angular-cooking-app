@@ -44,8 +44,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeIngredient() {
-    this.slService.deleteIngredient(this.editedItemIndex);
+  removeIngredient(i:number) {
+    this.slService.deleteIngredient(i);
       this.dsService.storeIngredients();
       this.toastService.showWarning('Ingredient deleted.', '', '');
       
