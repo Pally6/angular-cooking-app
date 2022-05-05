@@ -19,40 +19,42 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   private isStartedEditing: Subscription;
   editedItemIndex: number;
   
+  
+  
 
   constructor(
     private dsService: DataStorageService,
     private toastService: ToastService,
     private recipeService: RecipeService,
     private slService: ShoppingListService
-  ) {}
+  ) { 
+
+    this.recipeName = this.recipeService.reccName;
+    console.log(this.recipeName)
+    
+  }
 
   
 
   ngOnInit(): void {
-    this.ingredients = this.slService.getIngredients();
-    this.igChange = this.slService.ingredientsChanged.subscribe(
-      (ingredients: Ingredient[]) => {
-        this.ingredients = ingredients;
-      }
-    );
-
-    
 
     this.dsService.fetchIngredients().subscribe();
     this.isStartedEditing = this.slService.startedEditing.subscribe(
-      (index: number) => {
-        this.editedItemIndex = index;
-      }
-    );
-
-    this.recipeService.recipeName.subscribe((rec) => {
-      this.recipeName = rec.name;
-      console.log(this.recipeName);
-    })
+    (index: number) => {
+    this.editedItemIndex = index;
+    });
+    
+  
+    this.ingredients = this.slService.getIngredients();
+    this.igChange = this.slService.ingredientsChanged.subscribe(
+    (ingredients: Ingredient[]) => {
+    this.ingredients = ingredients;
+    });
 
     
   }
+  
+  
 
   removeIngredient(i:number) {
     this.slService.deleteIngredient(i);
@@ -66,7 +68,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.igChange.unsubscribe();
-    this.isStartedEditing.unsubscribe();
-  }
+  
+      this.igChange.unsubscribe();
+      this.isStartedEditing.unsubscribe();
+    
+    }
+  
 }

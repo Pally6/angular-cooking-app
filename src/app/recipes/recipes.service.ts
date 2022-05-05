@@ -8,16 +8,21 @@ import { Recipe } from './recipe.model';
 export class RecipeService {
   recipeName  = new Subject<Recipe>()
   recipesChanged = new Subject<Recipe[]>();
+  reccName: any
 
   private recipes: Recipe[] = [];
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private slService: ShoppingListService) { this.recipeName.subscribe((recName) => {
+    this.reccName = recName.name;
+  });}
 
   getRecipeName(recipe: Recipe) {
     const rec:Recipe = recipe
-    return this.recipeName.next(rec)
+    this.recipeName.next(rec)
   }
 
+  
+  
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
     this.updateRecipesChanged();

@@ -16,8 +16,10 @@ export class ShoppingListService {
   }
 
   setIngredients(ingredients: Ingredient[]) {
-    this.ingredients = ingredients;
-    this.ingredientsChanged.next(this.ingredients.slice());
+    if(ingredients) {
+      this.ingredients = ingredients;
+      this.ingredientsChanged.next(this.ingredients.slice());
+    }
   }
 
   getIngredients() {
