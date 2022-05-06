@@ -27,6 +27,7 @@ export class RegisterComponent {
     const password = form.value.password;
     let authObs: Observable<AuthResponseData>;
     localStorage.setItem('userName', JSON.stringify(firstName));
+    this.isLoading = true;
 
     if (!form.valid) {
       return;

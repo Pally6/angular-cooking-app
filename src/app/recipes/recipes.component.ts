@@ -12,5 +12,6 @@ export class RecipesComponent implements OnInit {
   
   ngOnInit(): void {
     this.name = JSON.parse(localStorage.getItem('userName'));
+    
   }
 }
