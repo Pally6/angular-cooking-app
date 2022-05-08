@@ -151,7 +151,6 @@ export class AuthService {
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
           environment.FirebaseAPIKey,
         {
-          
           email: email,
           password: password,
           returnSecureToken: true,
