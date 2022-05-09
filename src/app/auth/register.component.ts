@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DataStorageService } from '../shared/data-storage.service';
 import { ToastService } from '../shared/toast-notification.service';
 import { AuthResponseData, AuthService } from './auth.service';
 
@@ -17,6 +18,7 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private dataStorageService: DataStorageService,
     private toastService: ToastService
   ) {}
 
@@ -39,6 +41,7 @@ export class RegisterComponent {
       (resData) => {
         console.log(resData);
         console.log(firstName);
+        this.dataStorageService.storeUsers(resData.localId)
         this.router.navigate(['/recipes']);
         this.isLoading = false;
         this.toastService.showSuccess(

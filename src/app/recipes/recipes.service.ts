@@ -8,13 +8,15 @@ import { Recipe } from './recipe.model';
 export class RecipeService {
   recipeName  = new Subject<Recipe>()
   recipesChanged = new Subject<Recipe[]>();
-  reccName: any
+  reccName: any;
+  isLoggedIn = new Subject();
 
   private recipes: Recipe[] = [];
 
-  constructor(private slService: ShoppingListService) { this.recipeName.subscribe((recName) => {
-    this.reccName = recName.name;
-  });}
+  constructor(private slService: ShoppingListService) { this.recipeName.subscribe((rec) => {
+    this.reccName = rec.name;
+  });
+}
 
   getRecipeName(recipe: Recipe) {
     const rec:Recipe = recipe
@@ -24,8 +26,13 @@ export class RecipeService {
   
   
   setRecipes(recipes: Recipe[]) {
-    this.recipes = recipes;
-    this.updateRecipesChanged();
+    if(!recipes) {
+      return;
+    } 
+    else {
+      this.recipes = recipes;
+      this.updateRecipesChanged();
+    }
   }
 
   getRecipes() {

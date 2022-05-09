@@ -1,11 +1,11 @@
-import { Component, OnInit, Input,  } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ToastService } from "./toast-notification.service";
 
 @Component({
     selector: 'app-toast',
     templateUrl: './toast-notification.component.html',
     styleUrls: ['./toast-notification.component.scss'],
-  })
+    })
   export class ToastComponent implements OnInit {
 
     constructor(private toastService: ToastService) {}
@@ -16,7 +16,7 @@ import { ToastService } from "./toast-notification.service";
 
    
     showToastSuccess() {
-      this.toastService.showSuccess("You have successfully logged in.", "", "")
+      this.toastService.showSuccess("This is Successs.", "", "")
     };
 
 
@@ -32,11 +32,4 @@ import { ToastService } from "./toast-notification.service";
       this.toastService.showWarning("Warning Bad.", "", "")
     };
 
-
-  //  fruits = ['apple', 'pear', 'banana', 'coconut'];
-  //  
-  //  onDelete() {
-  //    
-  //  }
-    
-}
+  }

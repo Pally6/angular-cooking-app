@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DataStorageService } from '../shared/data-storage.service';
 import { ToastService } from '../shared/toast-notification.service';
 import { AuthResponseData, AuthService } from './auth.service';
 
@@ -17,6 +18,7 @@ export class AuthComponent {
 
   constructor(
     private authService: AuthService,
+    private dataStorageService: DataStorageService,
     private router: Router,
     private toastService: ToastService
   ) {}
@@ -40,6 +42,7 @@ export class AuthComponent {
     authObs.subscribe(
       (resData) => {
         console.log(resData);
+        this.dataStorageService.storeUsers(resData.localId)
         this.router.navigate(['/recipes']);
         this.toastService.showSuccess(
           'You have successfully logged in.',

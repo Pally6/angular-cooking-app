@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { AuthService } from '../auth/auth.service';
 
 import { Recipe } from '../recipes/recipe.model';
-
 import { RecipeService } from '../recipes/recipes.service';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Ingredient } from './ingredient.model';
@@ -13,18 +11,34 @@ import { Ingredient } from './ingredient.model';
 export class DataStorageService {
   recipe: Recipe;
   ingredients: Ingredient;
+  loggedUser: string = null;
 
   constructor(
     private http: HttpClient,
     private recipeService: RecipeService,
-    private slService: ShoppingListService
+    private slService: ShoppingListService,
   ) {}
+
+  storeUsers(userData) {
+    const userId = {userId:""};
+    userId.userId = userData;
+    this.loggedUser = JSON.stringify(userId);
+    localStorage.setItem('userId', this.loggedUser);
+    console.log(this.loggedUser);
+    this.http
+      .put(
+        `https://ng-project-666-default-rtdb.firebaseio.com/loggedUsers.json`,
+        userId
+      ).subscribe((userId) => {
+        console.log(userId);
+      });
+  }
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
       .put(
-        'https://ng-project-666-default-rtdb.firebaseio.com/recipes.json',
+        `https://ng-project-666-default-rtdb.firebaseio.com/${this.loggedUser}/recipes.json`,
         recipes
       )
       .subscribe((response) => {
@@ -36,7 +50,7 @@ export class DataStorageService {
     const ingredients = this.slService.getIngredients();
     this.http
       .put(
-        'https://ng-project-666-default-rtdb.firebaseio.com/ingredients.json',
+        `https://ng-project-666-default-rtdb.firebaseio.com/${this.loggedUser}/ingredients.json`,
         ingredients
       )
       .subscribe((response) => {
@@ -45,9 +59,14 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.http
+    if(!this.loggedUser) {
+        this.loggedUser = localStorage.getItem('userId');
+        console.log(JSON.stringify(this.loggedUser));
+        
+    }
+      return this.http
       .get<Recipe[]>(
-        'https://ng-project-666-default-rtdb.firebaseio.com/recipes.json'
+        `https://ng-project-666-default-rtdb.firebaseio.com/${this.loggedUser}/recipes.json`
       )
       .pipe(
         tap((recipes) => {
@@ -57,9 +76,14 @@ export class DataStorageService {
   }
 
   fetchIngredients() {
+    if(!this.loggedUser) {
+      this.loggedUser = localStorage.getItem('userId');
+      console.log(JSON.stringify(this.loggedUser));
+      
+  }
     return this.http
       .get<Ingredient[]>(
-        'https://ng-project-666-default-rtdb.firebaseio.com/ingredients.json'
+        `https://ng-project-666-default-rtdb.firebaseio.com/${this.loggedUser}/ingredients.json`
       )
       .pipe(
         tap((ingredients) => {
