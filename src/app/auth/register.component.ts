@@ -6,6 +6,7 @@ import { DataStorageService } from '../shared/data-storage.service';
 import { ToastService } from '../shared/toast-notification.service';
 import { AuthResponseData, AuthService } from './auth.service';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

@@ -11,13 +11,12 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { RecipeService } from './recipes/recipes.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { SharedModule } from './shared/shared.module';
-import { RegisterComponent } from './auth/register.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,8 +31,8 @@ import { RegisterComponent } from './auth/register.component';
   providers: [
     ShoppingListService,
     ToastrService,
-    RecipeService,
-    {
+    RecipeService
+  ,{
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true,

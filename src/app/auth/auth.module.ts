@@ -5,15 +5,13 @@ import { SharedModule } from "../shared/shared.module";
 import { AuthRoutingModule } from "./auth-routing.module";
 
 import { AuthComponent } from "./auth.component";
+import { RegisterComponent } from "./register.component";
 
 
 @NgModule({
     declarations: [
-      
-      
       AuthComponent,
-      
-      
+      RegisterComponent
     ],
     imports: [
         CommonModule,

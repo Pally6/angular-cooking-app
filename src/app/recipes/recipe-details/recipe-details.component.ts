@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { ToastService } from 'src/app/shared/toast-notification.service';
-import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipes.service';
 

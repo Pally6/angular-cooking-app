@@ -5,7 +5,6 @@ import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { environment } from 'src/environments/environment';
-import { RecipeService } from '../recipes/recipes.service';
 
 
 export interface AuthResponseData {
@@ -26,10 +25,10 @@ export class AuthService {
   tokenExpirationTimer;
   authUser = new Subject<AuthResponseData>();
 
-  constructor(private http: HttpClient, private router: Router, private recipeService: RecipeService) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   
-
+  
   
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An uknown error occurred!';
@@ -71,6 +70,8 @@ export class AuthService {
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
+
+  
 
   autoLogin() {
     const userData: {

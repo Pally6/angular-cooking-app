@@ -21,7 +21,7 @@
     "@angular/router": "~13.2.0",
     "angularfire2": "^4.0.0-rc.1",
     "bootstrap": "^3.4.1",
-    "firebase": "8.0",
+    "firebase": "^9.8.1",
     "ngx-toastr": "^14.2.3",
     "rxjs": "^6.6.7",
     "rxjs-compat": "^6.6.7",
